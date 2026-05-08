@@ -1,17 +1,18 @@
 # JavaScript Web Calculator App
 A clean, responsive web calculator built with vanilla JavaScript. This project focuses on providing a stable user interface and professional-grade math handling, including automatic formatting and scientific notation for large results.
 
-## Table of contents
+## Table of Contents
 
 - [Overview](#overview)
-  - [The project](#the-project)
+  - [The Project](#the-project)
+  - [Core Features](#core-features)
   - [Screenshot](#screenshot)
   - [Links](#links)
-- [My process](#my-process)
-  - [Built with](#built-with)
-  - [What I learned](#what-i-learned)
-  - [Continued development](#continued-development)
-- [Author](#author)
+- [Technical Process](#technical-process)
+  - [Tech Stack](#tech-stack)
+  - [Key Technical Challenges](#key-technical-challenges)
+  - [Future Roadmap](#future-roadmap)
+- [Contact](#contact)
 
 ## Overview
 
@@ -19,15 +20,12 @@ A clean, responsive web calculator built with vanilla JavaScript. This project f
 
 I built this calculator to practice Object-Oriented Programming (OOP) in JavaScript. The goal was to create a tool that didn't just perform math, but felt like a real application—handling edge cases like division by zero and extremely large numbers that would normally break a web layout.
 
-Key Features
+### Core Features
 
--Standard Arithmetic: Addition, subtraction, multiplication, and division.
-
--Smart Display: Automatically adds commas to large numbers for readability.
-
--Overflow Protection: Converts results to scientific notation once they exceed 12 digits.
-
--Responsive Design: A mobile-first grid layout that scales perfectly across devices.
+* **Standard Arithmetic:** Supports addition, subtraction, multiplication, and division.
+* **Smart Formatting:** Numbers are automatically formatted with commas (e.g., `1,500,000`) for better readability using `.toLocaleString()`.
+* **Overflow Protection:** If a result exceeds 12 digits, the app automatically converts the display to **Scientific Notation** to prevent layout breaking.
+* **Responsive Keypad:** A mobile-first design using CSS Grid for a tactile, app-like experience.
 
 ### Screenshot
 
@@ -38,17 +36,42 @@ Key Features
 - [Solution URL](https://github.com/Kking927/calculator)
 - [Live Site URL](https://kking927.github.io/calculator/)
 
-## My process
+## Technical Process
 
-### Built with
+### Tech Stack
 
-- Semantic HTML5 markup
-- CSS custom properties
-- 
+* **HTML5**
+* **CSS3**
+* **JavaScript (ES6+)**
 
-### What I learned
+### Key Technical Challenges
 
-### Continued development
+#### 1. Managing UI Stability (The "Jumping" Problem)
+Initially, long numbers caused the calculator display to wrap to a second line, which pushed the buttons down and broke the layout. I solved this by:
+* Locking the grid row heights in CSS.
+* Implementing `white-space: nowrap` and `overflow: hidden` on the display container.
 
+#### 2. Dynamic Number Scaling
+To handle massive mathematical results, I wrote a custom `getDisplayNumber` method. It checks the length of the string and determines if the value should be presented as a standard formatted number or converted via `.toExponential(5)`.
 
-## Author
+```javascript
+getDisplayNumber(number) {
+  const stringNumber = number.toString();
+  if (stringNumber.length > 12) {
+    return parseFloat(stringNumber).toExponential(5);
+  }
+  return parseFloat(stringNumber).toLocaleString('en');
+}
+```
+
+### Future Roadmap
+
+* **Keyboard Support:** Adding event listeners for physical numpad input.
+
+* **Theme Toggle:** Implementing a Dark/Light mode switch.
+
+* **History Feature:** A slide-out panel to view previous calculations.
+
+## Contact
+
+- GitHub - [@Kking927](https://github.com/Kking927)
